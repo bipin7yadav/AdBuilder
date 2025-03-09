@@ -16,12 +16,12 @@ function App() {
   
 
   return (
-    // <Builder selectedAsset={selectedAsset} />
-    <div>
-      <TabNavigation setTabIndex={setTabIndex} />
-      {tabIndex === 0 && <Feed onSelect={redirectToBuilder} />}
-      {tabIndex === 1 && selectedAsset && <Builder selectedAsset={selectedAsset} />}
-    </div>
+    <Builder />
+    // <div>
+    //   <TabNavigation setTabIndex={setTabIndex} />
+    //   {tabIndex === 0 && <Feed onSelect={redirectToBuilder} />}
+    //   {tabIndex === 1 && selectedAsset && <Builder selectedAsset={selectedAsset} />}
+    // </div>
   );
 }
 

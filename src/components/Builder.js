@@ -8,11 +8,20 @@ import { ZoomButtons } from 'polotno/toolbar/zoom-buttons';
 import { SidePanel } from 'polotno/side-panel';
 import { Workspace } from 'polotno/canvas/workspace';
 import { getImageURL } from "../utils/image-utils";
+import jsonData from "../csvjson.json"
+import { PexelsSection } from "./pexel-section";
+import { DEFAULT_SECTIONS } from "polotno/side-panel"
 
 import '@blueprintjs/core/lib/css/blueprint.css';
 
 function Builder({ selectedAsset }) {
     console.log("builder :",selectedAsset);
+
+    // console.log("data :",jsonData);
+
+    let data = jsonData.slice(0,5)
+    console.log("data :",data);
+    
     
   const store = createStore({
     key: 'nFA5H9elEytDyPyvKL7T', // Get your key from https://polotno.com/cabinet/
@@ -22,28 +31,30 @@ function Builder({ selectedAsset }) {
   const [loaded, setLoaded] = useState(false);
   store.addPage();
 
+  const sections = [PexelsSection, ...DEFAULT_SECTIONS];
+
   // Add selected image to the Polotno workspace
-  useEffect(() => {
-    if (selectedAsset && !loaded) {
-      const page = store.pages[0]; // Get the first page
-      if (!page) {
-        // If no pages exist, add a new page
-        // store.addPage();
-      }
-      page.addElement({
-        type: "image",
-        src: getImageURL(selectedAsset.name), // Load selected image
-        width: 900, // Adjust size
-        height: 900, // Adjust size
-      });
-      // setLoaded(true);
-    }
-  }, [selectedAsset, store]);
+  // useEffect(() => {
+  //   if (selectedAsset && !loaded) {
+  //     const page = store.pages[0]; // Get the first page
+  //     if (!page) {
+  //       // If no pages exist, add a new page
+  //       // store.addPage();
+  //     }
+  //     page.addElement({
+  //       type: "image",
+  //       src: getImageURL(selectedAsset.name), // Load selected image
+  //       width: 900, // Adjust size
+  //       height: 900, // Adjust size
+  //     });
+  //     // setLoaded(true);
+  //   }
+  // }, [selectedAsset, store]);
 
   return (
     <PolotnoContainer style={{ width: '100vw', height: '90vh' }}>
       <SidePanelWrap>
-        <SidePanel store={store} />
+        <SidePanel store={store} sections={sections} defaultSection="Custom" />
       </SidePanelWrap>
       <WorkspaceWrap>
         <Toolbar store={store} downloadButtonEnabled />
